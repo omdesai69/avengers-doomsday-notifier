@@ -1,4 +1,4 @@
-"""Avengers Doomsday Ticket Sniper (Cloud & Local 24/7).
+"""Avengers Doomsday Ticket Notifier (Cloud & Local 24/7).
 
 Continuously monitors BookMyShow & District/Paytm Movies across theaters.
 When tickets go live, it broadcasts emergency siren alarms directly to subscribers via ntfy.sh.
@@ -9,8 +9,8 @@ import sys
 import time
 import requests
 
-# Default community topic (can be customized via environment variable)
-NTFY_TOPIC = os.getenv("NTFY_TOPIC", "om_doomsday_pune_99")
+# Default community topic
+NTFY_TOPIC = os.getenv("NTFY_TOPIC", "Avengers_Doomsday_Pune")
 CITY = os.getenv("TARGET_CITY", "pune").lower()
 
 BMS_PUNE_URL = f"https://in.bookmyshow.com/explore/movies-{CITY}"
@@ -29,7 +29,7 @@ HEADERS = {
 session = requests.Session()
 
 def broadcast_alarm(detected_source: str, booking_url: str):
-    print(f"\n🚨🚨 TICKETS LIVE ON {detected_source}! BROADCASTING ALARM! 🚨🚨\n")
+    print(f"\n🚨 TICKETS LIVE ON {detected_source}! BROADCASTING ALARM! 🚨\n")
     for _ in range(3):
         try:
             requests.post(
@@ -85,7 +85,7 @@ def run_check_once():
 def run_continuous_loop():
     """Runs continuous 24/7 local loop."""
     print("==========================================================")
-    print(f"🎯 AVENGERS: DOOMSDAY TICKET SNIPER ACTIVE ({CITY.upper()})")
+    print(f"🎯 AVENGERS: DOOMSDAY TICKET NOTIFIER ACTIVE ({CITY.upper()})")
     print(f"📲 Broadcast Topic: {NTFY_TOPIC}")
     print(f"🏙️ Location: {CITY.upper()} (All Theaters, IMAX, 3D, PVR INOX, Cinepolis)")
     print("⏱️ Checking every 30 seconds...")
